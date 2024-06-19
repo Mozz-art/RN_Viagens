@@ -6,6 +6,7 @@ export const Container = styled.View`
   padding: 0% 10%;
   width: 100%;
   height: 100%;
+  background-color: #1a1a1a;
   
 `;
 
@@ -14,13 +15,12 @@ export const Title = styled.Text`
   font-size: 30px;
   padding-bottom: 15%;
   font-weight: bold;
-  color: #63e6be;
+  color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 `;
 
 export const TitleTrip = styled.Text`
   font-size: 42px;
-  padding-bottom: 15%;
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   color: #63e6be;
@@ -31,7 +31,7 @@ export const InputContainer = styled.View`
   flex-direction: row;
   align-items: center;
   margin-bottom: 10%;
-  border: solid 2px black;
+  border: solid 2px white;
   padding: 3%;
   font-size: 20px;
   border-radius: ${(props) => (props.rounded ? "6px" : "0")};
@@ -52,7 +52,7 @@ export const ClearIcon = styled.TouchableOpacity`
 export const Button = styled.TouchableOpacity`
   width: 100%;
   justify-content: center;
-  background-color: #63e6be;
+  background-color: #014364;
   padding: 5%;
   border-radius: 12px;
 `;
@@ -65,7 +65,7 @@ export const ButtonRegister = styled.TouchableOpacity`
 `;
 
 export const TextRegister = styled.Text`
-  color: #63e6be;
+  color: white;
   font-size: 16px;
   align-items: center;
   justify-content: center;
@@ -95,3 +95,10 @@ export const IconStyle = {
   marginRight: 5,
   marginLeft: 7,
 };
+export const Logo = styled.Image`
+  width: 250px;
+  height: 250px;
+  margin-top: 25px;
+  margin-bottom: 20px;
+  align-self: center;
+`;

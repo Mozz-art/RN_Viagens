@@ -17,7 +17,8 @@ const Menu = () => {
       <S.IconAnimation>
         <Animatable.View animation="slideInDown" duration={2500}>
           <Animatable.View animation="fadeIn" duration={5000}>
-            <S.TitleTrip>Funções</S.TitleTrip>
+            <S.LogoMenu source={require("../../assets/menu.png")} />
+            <S.TitleTrip>Menu</S.TitleTrip>
           </Animatable.View>
         </Animatable.View>
       </S.IconAnimation>

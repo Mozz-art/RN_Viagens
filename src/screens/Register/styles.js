@@ -6,14 +6,16 @@ export const Container = styled.View`
   padding: 0% 10%;
   width: 100%;
   height: 100%;
+  background-color: #1a1a1a;
 `;
 
 export const Title = styled.Text`
-  font-size: 42px;
+  font-size: 30px;
   padding-bottom: 15%;
   font-weight: bold;
-  color: #63E6BE;
+  color: white;
   text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+  align-self: center;
 `;
 
 export const InputContainer = styled.View`
@@ -21,7 +23,7 @@ export const InputContainer = styled.View`
   flex-direction: row;
   align-items: center;
   margin-bottom: 10%;
-  border: solid 2px black;
+  border: solid 2px white;
   padding: 3%;
   font-size: 20px;
   border-radius: ${(props) => (props.rounded ? '6px' : '0')};
@@ -42,7 +44,7 @@ export const ClearIcon = styled.TouchableOpacity`
 export const Button = styled.TouchableOpacity`
   width: 100%;
   justify-content: center;
-  background-color: #63E6BE;
+  background-color: #014364;
   padding: 5%;
   border-radius: 12px;
   text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
@@ -57,7 +59,7 @@ export const ButtonRegister = styled.TouchableOpacity`
 `;
 
 export const TextRegister= styled.Text`
-  color: #63E6BE;
+  color: white;
   font-size: 16px;
   align-items: center;
   justify-content: center;
@@ -80,3 +82,10 @@ export const IconStyle = {
   marginRight: 5,
   marginLeft: 7,
 };
+
+export const LogoRegistro = styled.Image`
+  width: 250px;
+  height: 250px;
+  margin-top: 50px;
+  align-self: center;
+`;

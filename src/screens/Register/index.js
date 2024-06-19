@@ -21,12 +21,14 @@ const Register = () => {
       
       <Animatable.View animation="slideInDown" duration={2500}>
           <Animatable.View animation="fadeIn" duration={5000}>
+          <S.LogoRegistro source={require("../../assets/registro.png")} />
           <S.Title>Cadastre-se</S.Title>
           </Animatable.View>
         </Animatable.View>
       <S.InputContainer rounded>
-        <Icon name="envelope" size={14} color="#888" style={S.IconStyle} />
+        <Icon name="envelope" size={14} color="white" style={S.IconStyle} />
         <S.Input
+        placeholderTextColor="#FFFFFF"
           placeholder="E-mail"
           value={email}
           onChangeText={(text) => setMail(text)}
@@ -36,8 +38,9 @@ const Register = () => {
         ) : null}
       </S.InputContainer>
       <S.InputContainer rounded>
-        <Icon name="lock" size={20} color="#888" style={S.IconStyle} />
+        <Icon name="lock" size={20} color="white" style={S.IconStyle} />
         <S.Input
+        placeholderTextColor="#FFFFFF"
           placeholder="Password"
           secureTextEntry
           value={password}
@@ -48,8 +51,9 @@ const Register = () => {
         ) : null}
       </S.InputContainer>
       <S.InputContainer rounded>
-        <Icon name="lock" size={20} color="#888" style={S.IconStyle} />
+        <Icon name="lock" size={20} color="white" style={S.IconStyle} />
         <S.Input
+        placeholderTextColor="#FFFFFF"
           placeholder="Confirm Password"
           secureTextEntry
           value={confirmPass}

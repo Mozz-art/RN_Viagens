@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import * as S from "./styles";
 import { useNavigation } from "@react-navigation/native";
-import { FontAwesome5 } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 
 const Login = () => {
   const navigation = useNavigation();
-
   const [email, setMail] = useState("");
   const [password, setPass] = useState("");
 
@@ -16,18 +14,16 @@ const Login = () => {
   };
   return (
     <S.Container>
-      <S.IconAnimation>
         <Animatable.View animation="slideInDown" duration={2500}>
           <Animatable.View animation="fadeIn" duration={5000}>
-            <S.TitleTrip>RNtrip</S.TitleTrip>
-            <FontAwesome5 name="plane-departure" size={120} color="#63E6BE" />
+            <S.Logo source={require("../../assets/logo.png")} />
+            <S.Title>Login</S.Title>
           </Animatable.View>
         </Animatable.View>
-      </S.IconAnimation>
-      <S.Title>Login</S.Title>
       <S.InputContainer rounded>
         <Icon name="envelope" size={14} color="#888" style={S.IconStyle} />
         <S.Input
+          placeholderTextColor="#FFFFFF"
           placeholder="E-mail"
           value={email}
           onChangeText={(text) => setMail(text)}
@@ -39,6 +35,7 @@ const Login = () => {
       <S.InputContainer rounded>
         <Icon name="lock" size={20} color="#888" style={S.IconStyle} />
         <S.Input
+          placeholderTextColor="#FFFFFF"
           placeholder="Password"
           secureTextEntry
           value={password}

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "triptwo",
-    "slug": "triptwo",
+    "slug": "rntrip",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "../assets/icon.png",
@@ -32,6 +32,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "eaa18132-1a6c-4efd-be93-fb8c73af80e1"
+      }
+    },
+    "owner": "mozzart00"
   }
 }

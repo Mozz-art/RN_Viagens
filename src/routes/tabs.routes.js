@@ -11,8 +11,8 @@ export default function TabRoutes() {
   return (
     <Tab.Navigator
       initialRouteName="Login"
-      activeColor="black"
-      inactiveColor="white"
+      activeColor="white"
+      inactiveColor="black"
       barStyle={{ 
         backgroundColor: '#5c5b5b' }}
       screenOptions={{ headerShown: false }}
@@ -32,7 +32,7 @@ export default function TabRoutes() {
         component={Register}
         options={{
           tabBarIcon: ({ color, size }) => <AntDesign name="adduser" color={color} size={25} />,
-          tabBarLabel: 'Register',
+          tabBarLabel: 'Registro',
           
         }}
       />

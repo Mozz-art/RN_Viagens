@@ -1,108 +1,111 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
-import * as S from './styles';
-import { View, Image, Dimensions } from 'react-native';
-import { Camera } from 'expo-camera';
-import * as MediaLibrary from 'expo-media-library';
+import React, { useState, useRef } from "react";
+import { Button, Text, View, Image, Alert } from "react-native";
+import { CameraView, useCameraPermissions } from "expo-camera";
+import * as MediaLibrary from "expo-media-library";
+import {
+  Container,
+  Container2,
+  CameraContainer,
+  ButtonContainer,
+  ButtonContainer2,
+  StyledButton,
+  StyledButton2,
+} from "./styles";
+import { Feather } from "@expo/vector-icons";
 
 const TakePhoto = () => {
-  const [showCamera, setShowCamera] = useState(false);
-  const [hasPermission, setHasPermission] = useState(null);
+  const [facing, setFacing] = useState("back");
+  const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef(null);
-  const [pickedImagePath, setPickedImagePath] = useState('');
+  const [photoUri, setPhotoUri] = useState(null);
+  const [showCamera, setShowCamera] = useState(true);
 
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
+  if (!permission) {
+    return <View />;
+  }
 
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
+  if (!permission.granted) {
+    return (
+      <Container>
+        <Text style={{ textAlign: "center" }}>
+          We need your permission to show the camera
+        </Text>
+        <Button onPress={requestPermission} title="garantir permissão" />
+      </Container>
+    );
+  }
 
-  const imageWidth = windowWidth * 0.8;
-  const imageHeight = windowHeight * 0.57;
+  async function toggleCameraFacing() {
+    setFacing((current) => (current === "back" ? "front" : "back"));
+  }
 
-  const takePicture = async () => {
+  async function tirarFoto() {
     if (cameraRef.current) {
-      const photo = await cameraRef.current.takePictureAsync();
-      setPickedImagePath(photo.uri);
+      try {
+        const photo = await cameraRef.current.takePictureAsync();
+        setPhotoUri(photo.uri);
+        setShowCamera(false);
+      } catch (error) {
+        console.error("Erro ao tirar a foto:", error);
+      }
     }
-  };
+  }
 
-  const openCamera = async () => {
-    const permissionResult = await Camera.requestCameraPermissionsAsync();
-
-    if (permissionResult.granted === false) {
-      alert('Sem permissão de acesso a câmera!');
-      return;
-    }
-
+  async function deleteFoto() {
+    setPhotoUri(null);
     setShowCamera(true);
-  };
+  }
 
-  const closeCamera = () => {
-    setShowCamera(false);
-  };
-
-  const deletePhoto = () => {
-    setPickedImagePath('');
-  };
+  async function salvarFoto() {
+    if (photoUri) {
+      try {
+        await MediaLibrary.saveToLibraryAsync(photoUri);
+        Alert.alert("Foto salva com sucesso!");
+        setShowCamera(true);
+      } catch (error) {
+        console.error("Erro ao salvar a foto:", error);
+        Alert.alert("Erro ao salvar a foto!");
+      }
+    } else {
+      Alert.alert("Nenhuma foto para salvar!");
+    }
+  }
 
   return (
-    <S.Container>
-      {!showCamera && (
-        <>
-          {pickedImagePath !== '' && (
-            <View style={{ alignItems: 'center' }}>
-              <Image
-                source={{ uri: pickedImagePath }}
-                style={{
-                  width: imageWidth,
-                  height: imageHeight,
-                  resizeMode: 'cover',
-                  marginVertical: 10,
-                }}
-              />
-            </View>
-          )}
-
-          <S.TaskContainer>
-            <S.ActionButton onPress={openCamera}>
-              <MaterialIcons name="photo-camera" size={24} color="#fff" />
-            </S.ActionButton>
-          </S.TaskContainer>
-        </>
-      )}
-
-      {showCamera && (
-        <Camera
-          style={{ flex: 1 }}
-          type={Camera.Constants.Type.back}
-          ref={cameraRef}
-        />
-      )}
-
-      {showCamera && (
-        <S.TaskContainerCamera>
-          <S.CameraButton
-            onPress={async () => {
-              await takePicture();
-              closeCamera();
-            }}
-          >
-            <MaterialIcons name="camera" size={22} color="white" />
-          </S.CameraButton>
-          <S.CameraButton onPress={deletePhoto}>
-            <MaterialIcons name="delete" size={22} color="white" />
-          </S.CameraButton>
-          <S.CameraButton onPress={closeCamera}>
-            <MaterialIcons name="close" size={22} color="white" />
-          </S.CameraButton>
-        </S.TaskContainerCamera>
-      )}
-    </S.Container>
+    <Container>
+      <CameraContainer>
+        {showCamera ? (
+          <CameraView style={{ flex: 1 }} facing={facing} ref={cameraRef}>
+            <ButtonContainer>
+              <StyledButton onPress={toggleCameraFacing}>
+                <Feather name="refresh-ccw" size={40} color="#fff" />
+              </StyledButton>
+              <StyledButton onPress={tirarFoto}>
+                <Feather name="camera" size={40} color="#fff" />
+              </StyledButton>
+            </ButtonContainer>
+          </CameraView>
+        ) : (
+          <Container>
+            <Image
+              source={{ uri: photoUri }}
+              style={{ flex: 1 }}
+              resizeMode="cover"
+            />
+            {!showCamera && (
+              <ButtonContainer2>
+                <StyledButton2 onPress={deleteFoto}>
+                  <Feather name="x" size={40} color="#fff" />
+                </StyledButton2>
+                <StyledButton2 onPress={salvarFoto}>
+                  <Feather name="save" size={40} color="#fff" />
+                </StyledButton2>
+              </ButtonContainer2>
+            )}
+          </Container>
+        )}
+      </CameraContainer>
+    </Container>
   );
 };
 

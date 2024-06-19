@@ -1,112 +1,54 @@
-import styled from 'styled-components/native';
+import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
-  display: flex;
-  padding: 20px;
-  background-color: #f5f5f5;
-  
+  justify-content: center;
+  background-color: #1a1a1a;
 `;
 
-export const TitleDash = styled.Text`
-  text-align: center;
-  font-size: 26px;
-  font-weight: bold;
-  margin: 50px 0 10px 0;
-  color: #63E6BE;
-
-`
-
-export const AuthButton = styled.TouchableOpacity`
-  background-color: #4285f4;
-  padding: 10px;
-  border-radius: 5px;
-  margin-bottom: 20px;
+export const CameraContainer = styled.View`
+  flex: 1;
 `;
 
-export const AuthButtonText = styled.Text`
-  color: #fff;
-  text-align: center;
+export const ButtonContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  flex-direction: row;
+  background-color: transparent;
 `;
 
-export const TaskContainer = styled.View`
-  background-color: #fff;
+export const StyledButton = styled.TouchableOpacity`
+  align-self: flex-end;
+  align-items: center;
   padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-export const TaskText = styled.Text`
-  flex: 1;
-  margin-right: 10px;
-  font-size: 16px;
-`;
-
-export const TaskInput = styled.TextInput`
-  flex: 1;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 10px;
-  margin-right: 10px;
-  font-size: 16px;
-  outline: none;
-  
-`;
-
-export const ActionButton = styled.TouchableOpacity`
-  background-color: #63E6BE;
-  padding: 8px;
-  border-radius: 5px;
-  margin-left: 5px;
-`;
-
-export const ActionButtonText = styled.Text`
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  color: #63E6BE;
-  font-size: 14px;
-`;
-
-export const ButtonSavePhoto = styled.TouchableOpacity`
-  width: 45%;
-  background-color: #63E6BE;
-  padding: 12px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-`;
-export const TextButtonSave = styled.Text`
-  width: 100%;
-  color: white;
-  text-align: center;
-  border-radius: 10px;
-  font-size: 20px;
-  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
-`;
-export const ContainerSaveDelete = styled.TouchableOpacity`
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  width: 100%;
-
-`;
-export const TaskContainerCamera = styled.View`
-  width: 100%;
-  height: 10%;
-  background-color: #5c5b5b;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-`;
-
-export const CameraButton = styled.TouchableOpacity`
-  width: 30%;
-  height: 80%;
+  margin: 10px;
+  width: 20%;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  background-color: #63E6BE;
+  background-color: #014364;
   border-radius: 10px;
   justify-content: center;
   align-items: center;
+`;
+export const ButtonContainer2 = styled.View`
+  justify-content: center;
+  flex-direction: row;
+  background-color: transparent;
+`;
+export const StyledButton2 = styled.TouchableOpacity`
+  align-self: flex-end;
+  align-items: center;
+  padding: 15px;
+  margin: 10px;
+  width: 20%;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  background-color: #014364;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+`;
 
+export const StyledText = styled.Text`
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
 `;

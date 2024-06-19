@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import {
   Text,
   View,
@@ -31,10 +31,9 @@ function Galeria() {
   const PAGE_WIDTH = windowWidth;
 
   const [images, setImages] = useState([
-    { uri: require("../../assets/Sprint.png"), name: "Fotos" },
+    { uri: require("../../assets/Gallery.png"), name: "Fotos" },
   ]);
   const [photoName, setPhotoName] = useState("");
-  const [fullScreenIndex, setFullScreenIndex] = useState(null);
 
   const animationStyle = useCallback(
     (value) => {
@@ -113,7 +112,7 @@ function Galeria() {
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       const storedImages = await loadImages();
       if (storedImages) {
@@ -123,20 +122,8 @@ function Galeria() {
     fetchData();
   }, []);
 
-  const toggleFullScreen = (index) => {
-    setFullScreenIndex(fullScreenIndex === index ? null : index);
-  };
-
   return (
     <S.Container>
-      <Image
-        source={require("../../assets/Sprint.png")}
-        style={{
-          width: PAGE_WIDTH,
-          height: PAGE_HEIGHT,
-          position: "absolute",
-        }}
-      />
       <BlurView
         intensity={80}
         tint="dark"
@@ -146,16 +133,6 @@ function Galeria() {
           position: "absolute",
         }}
       />
-      {fullScreenIndex !== null && (
-        <Image
-          source={{ uri: images[fullScreenIndex].uri }}
-          style={{
-            width: PAGE_WIDTH,
-            height: PAGE_HEIGHT,
-            position: "absolute",
-          }}
-        />
-      )}
       <Carousel
         loop
         vertical
@@ -169,70 +146,62 @@ function Galeria() {
         height={ITEM_HEIGHT}
         data={images}
         renderItem={({ item, index }) => {
-          const isFullScreen = fullScreenIndex === index;
           return (
-            <TouchableOpacity
-              onPress={() => toggleFullScreen(index)}
-              key={index}
-            >
+            <TouchableOpacity key={index}>
               <S.Container2>
-
-                {!isFullScreen && (
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    borderRadius: 20,
+                    
+                  }}
+                >
+                  <S.DeleteButton onPress={() => removeImage(index)}>
+                    <Feather name="trash" size={20} color="#fff" />
+                  </S.DeleteButton>
                   <View
                     style={{
-                      alignItems: "center",
-                      justifyContent: "space-between",
                       flexDirection: "row",
-                      borderRadius: 20,
-                      backgroundColor: 'black',
+                      alignItems: "center",
                     }}
                   >
-                  <S.DeleteButton onPress={() => removeImage(index)}>
-                  <Feather name="trash" size={20} color="#fff" />
-                </S.DeleteButton>
-                    <View
+                    <Text
+                      numberOfLines={1}
                       style={{
-                        
-                        flexDirection: "row",
-                        alignItems: "center",
+                        maxWidth: ITEM_WIDTH * 0.3 - 40,
+                        color: "white",
+                        fontSize: 16,
+                        marginLeft: 10,
                       }}
                     >
-                      <Text
-                        numberOfLines={1}
-                        style={{
-                          maxWidth: ITEM_WIDTH * 0.3 - 40,
-                          color: "white",
-                          fontSize: 16,
-                          marginLeft: 15,
-                        }}
-                      >
-                        {item.name}
-                      </Text>
-                    </View>
-                    <View
-                      style={{
-                        width: isFullScreen ? PAGE_WIDTH : ITEM_WIDTH * 0.6,
-                        height: isFullScreen ? PAGE_HEIGHT : ITEM_HEIGHT - 20,
-                        borderRadius: 10,
-                        overflow: "hidden",
-                      }}
-                    >
-                      <Image
-                        style={{
-                          width: isFullScreen ? PAGE_WIDTH : ITEM_WIDTH * 0.6,
-                          height: isFullScreen ? PAGE_HEIGHT : ITEM_HEIGHT - 20,
-                          borderRadius: 10,
-                          marginRight: 5,
-                        }}
-                        source={
-                          typeof item.uri === "string"
-                            ? { uri: item.uri }
-                            : item.uri
-                        }
-                      />
-                    </View>
+                      {item.name}
+                    </Text>
                   </View>
-                )}
+                  <View
+                    style={{
+                      width: ITEM_WIDTH * 0.6,
+                      height: ITEM_HEIGHT - 20,
+                      borderRadius: 10,
+                      overflow: "hidden",
+                    }}
+                  >
+                    <Image
+                      style={{
+                        width: ITEM_WIDTH * 0.6,
+                        height: ITEM_HEIGHT - 20,
+                        borderRadius: 10,
+                        marginRight: 5,
+                      }}
+                      source={
+                        typeof item.uri === "string"
+                          ? { uri: item.uri }
+                          : item.uri
+                      }
+                    />
+                  </View>
+                </View>
               </S.Container2>
             </TouchableOpacity>
           );
@@ -245,6 +214,7 @@ function Galeria() {
             placeholder="Nome da foto"
             value={photoName}
             onChangeText={setPhotoName}
+            placeholderTextColor="#FFFFFF"
           />
           <MaterialIcons name="add" size={24} color="#fff" />
         </S.AddButton>

@@ -11,10 +11,10 @@ export default function TabRoutes() {
   return (
     <Tab.Navigator
       initialRouteName="Login"
-      activeColor="white"
+      activeColor="black"
       inactiveColor="black"
       barStyle={{ 
-        backgroundColor: '#5c5b5b' }}
+        backgroundColor: '#fff' }}
       screenOptions={{ headerShown: false }}
       
       

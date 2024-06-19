@@ -1,20 +1,21 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
   display: flex;
-  align-items: center;
   padding: 20px;
-  background-color: #1a1a1a;
+  background-color: #f5f5f5;
+  
 `;
 
 export const TitleDash = styled.Text`
   text-align: center;
-  font-size: 32px;
+  font-size: 26px;
   font-weight: bold;
-  margin: 0px 0 30px 0;
-  color: white;
-`;
+  margin: 50px 0 10px 0;
+  color: #63E6BE;
+
+`
 
 export const AuthButton = styled.TouchableOpacity`
   background-color: #4285f4;
@@ -52,10 +53,11 @@ export const TaskInput = styled.TextInput`
   margin-right: 10px;
   font-size: 16px;
   outline: none;
+  
 `;
 
 export const ActionButton = styled.TouchableOpacity`
-  background-color: #014364;
+  background-color: #63E6BE;
   padding: 8px;
   border-radius: 5px;
   margin-left: 5px;
@@ -63,13 +65,13 @@ export const ActionButton = styled.TouchableOpacity`
 
 export const ActionButtonText = styled.Text`
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  color: #63e6be;
+  color: #63E6BE;
   font-size: 14px;
 `;
 
 export const ButtonSavePhoto = styled.TouchableOpacity`
   width: 45%;
-  background-color: #63e6be;
+  background-color: #63E6BE;
   padding: 12px;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -87,7 +89,7 @@ export const ContainerSaveDelete = styled.TouchableOpacity`
   align-items: center;
   flex-direction: row;
   width: 100%;
-  padding: 20px;
+
 `;
 export const TaskContainerCamera = styled.View`
   width: 100%;
@@ -96,21 +98,15 @@ export const TaskContainerCamera = styled.View`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  padding: 20px;
 `;
 
 export const CameraButton = styled.TouchableOpacity`
   width: 30%;
   height: 80%;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  background-color: #63e6be;
+  background-color: #63E6BE;
   border-radius: 10px;
   justify-content: center;
   align-items: center;
-`;
-export const LogoMapa = styled.Image`
-  width: 150px;
-  height: 150px;
-  margin-bottom: 5px;
-  align-self: center;
+
 `;

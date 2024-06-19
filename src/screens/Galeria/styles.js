@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 export const Container = styled.View`
    width: 100%;
    height: 100%;
+   background-color: #1a1a1a;
 `;
 
 export const Container2 = styled.View`
@@ -12,7 +13,7 @@ export const Container2 = styled.View`
 `;
 export const DeleteButton = styled.TouchableOpacity`
   width: 20%;
-  background-color: #63e6be;
+  background-color: #014364;
   padding: 10px;
   border-radius: 5px;
   margin-left: 5px;
@@ -28,7 +29,7 @@ export const ButtonContainer = styled.View`
 export const AddButton = styled.TouchableOpacity`
   width: 100%;
   height: 50px;
-  background-color: #63e6be;
+  background-color: #014364;
   flex-direction: row;
   align-items: center;
   padding: 0 25px;

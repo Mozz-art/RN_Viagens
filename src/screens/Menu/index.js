@@ -27,7 +27,7 @@ const Menu = () => {
           <Feather name="book" size={50} color="#fff" />
           <S.TextMenu>Destino</S.TextMenu>
         </S.ActionButton>
-        <S.ActionButton onPress={() => navigation.navigate("Camera")}>
+        <S.ActionButton onPress={() => navigation.navigate("TakePhoto")}>
           <Feather name="camera" size={50} color="#fff" />
           <S.TextMenu>Câmera</S.TextMenu>
         </S.ActionButton>

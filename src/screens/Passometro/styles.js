@@ -2,14 +2,13 @@ import styled from "styled-components/native";
 
 export const Container = styled.View`
   flex: 1;
-  background-color: white;
   align-items: center;
   justify-content: center;
+  background-color: #1a1a1a;
 `;
 export const MidContainer = styled.View`
-  background-color: #5c5b5b;
   width: 85%;
-  height: 85%;
+  height: 80%;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
@@ -19,9 +18,9 @@ export const MidContainer = styled.View`
   margin-bottom: 20px;
 `;
 export const Title = styled.Text`
-  font-size: 26px;
+  font-size: 32px;
   margin-bottom: 20px;
-  color: #63e6be;
+  color: white;
   font-weight: bold;
 `;
 
@@ -33,7 +32,7 @@ export const InfoContainer = styled.View`
 export const ButtonPassometro = styled.TouchableOpacity`
   width: 80%;
   justify-content: center;
-  background-color: #63e6be;
+  background-color: #014364;
   padding: 5%;
   border-radius: 12px;
   align-items: center;
@@ -53,15 +52,14 @@ export const Texts = styled.Text`
   font-size: 18px;
   margin-bottom: 15px;
   margin-top: 20px;
-  color: #63e6be;
+  color: black;
 `;
 export const TextsButton = styled.Text`
   font-size: 22px;
-
   color: white;
 `;
 export const LogoPassometro = styled.Image`
-  width: 200px;
-  height: 200px;
-  margin-top: 20px;
+  width: 250px;
+  height: 250px;
+  align-self: center;
 `;

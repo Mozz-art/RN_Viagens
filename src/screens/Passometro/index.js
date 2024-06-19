@@ -64,7 +64,7 @@ const Passometro = () => {
         <S.InfoContainer>
           <Animatable.View animation="slideInDown" duration={2500}>
             <Animatable.View animation="fadeIn" duration={5000}>
-              <S.LogoPassometro source={require("../../assets/Sprint.png")} />
+              <S.LogoPassometro source={require("../../assets/Sprint1.png")} />
             </Animatable.View>
           </Animatable.View>
 

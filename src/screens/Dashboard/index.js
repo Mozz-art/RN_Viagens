@@ -48,6 +48,7 @@ const Dashboard = () => {
     <S.Container>
       <Animatable.View animation="slideInDown" duration={2500}>
         <Animatable.View animation="fadeIn" duration={5000}>
+          <S.LogoMapa source={require("../../assets/mapa.png")} />
           <S.TitleDash>Destinos</S.TitleDash>
         </Animatable.View>
       </Animatable.View>
@@ -55,7 +56,7 @@ const Dashboard = () => {
         <S.TaskContainer
           key={task.id}
           style={{
-            backgroundColor: isTaskCompleted(task.id) ? "#6ac259" : "#fff",
+            backgroundColor: isTaskCompleted(task.id) ? "#1a605a" : "#fff",
           }}
         >
           <S.TaskText
@@ -63,7 +64,7 @@ const Dashboard = () => {
               textDecorationLine: isTaskCompleted(task.id)
                 ? "line-through"
                 : "none",
-              color: isTaskCompleted(task.id) ? "blue" : "#000",
+              color: isTaskCompleted(task.id) ? "white" : "#000",
             }}
           >
             {task.title}
@@ -93,7 +94,8 @@ const Dashboard = () => {
           onChangeText={(text) => setNewTask(text)}
         />
         <S.ActionButton onPress={addTask}>
-          <MaterialIcons name="add-circle" size={24} color="#fff" />
+          <MaterialIcons name="add-circle" 
+          size={24} color="#fff" />
         </S.ActionButton>
       </S.TaskContainer>
     </S.Container>

@@ -55,6 +55,7 @@ export const Button = styled.TouchableOpacity`
   background-color: #014364;
   padding: 5%;
   border-radius: 12px;
+  
 `;
 
 export const ButtonRegister = styled.TouchableOpacity`

@@ -7,11 +7,12 @@ export const Container = styled.View`
   background-color: #fff;
   align-items: center;
   justify-content: center;
+  background-color: #1a1a1a;
 `;
 
 export const StyledMapView = styled(MapView)`
   align-self: stretch;
-  height: 80%;
+  height: 83%;
 `;
 
 export const ButtonNav = styled.TouchableOpacity`
@@ -19,7 +20,7 @@ export const ButtonNav = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   width: 80%;
-  background-color: #63E6BE;
+  background-color: #014364;
    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   padding: 15px;
   border-radius: 10px;
@@ -38,7 +39,7 @@ export const LatLongContainer = styled.View`
 `;
 
 export const LatLong = styled.Text`
-  color: black;
+  color: white;
   font-weight: bold;
   font-size: 12px;
   margin-right: 10px; 

@@ -30,7 +30,6 @@ export const ActionButton = styled.TouchableOpacity`
 
 export const TitleTrip = styled.Text`
   font-size: 32px;
-  padding-bottom: 5%;
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   color: white;
@@ -47,8 +46,8 @@ export const TextMenu = styled.Text`
 `;
 
 export const LogoMenu = styled.Image`
-  width: 130px;
-  height: 130px;
+  width: 180px;
+  height: 180px;
   margin-top: 50px;
   align-self: center;
 `;

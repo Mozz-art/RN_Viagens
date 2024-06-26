@@ -1,0 +1,5 @@
+[
+  { "time": 1, "steps": 100 },
+  { "time": 2, "steps": 200 },
+  { "time": 3, "steps": 300 }
+]

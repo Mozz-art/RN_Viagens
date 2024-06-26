@@ -1,12 +1,6 @@
+// src/components/Galeria.js
 import React, { useState, useCallback, useEffect } from "react";
-import {
-  Text,
-  View,
-  Image,
-  Dimensions,
-  TouchableOpacity,
-  Alert,
-} from "react-native";
+import { Text, View, Image, Dimensions, TouchableOpacity, Alert } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { BlurView } from "expo-blur";
 import { interpolate } from "react-native-reanimated";
@@ -14,6 +8,8 @@ import * as S from "./styles";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from 'react-redux';
+import { setGalleryImages, addGalleryImage, removeGalleryImage } from '../../database/store';
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -30,9 +26,9 @@ function Galeria() {
   const PAGE_HEIGHT = windowHeight - headerHeight;
   const PAGE_WIDTH = windowWidth;
 
-  const [images, setImages] = useState([
-    { uri: require("../../assets/Gallery.png"), name: "Fotos" },
-  ]);
+  const dispatch = useDispatch();
+  const galleryImages = useSelector(state => state.pedometer.galleryImages);
+
   const [photoName, setPhotoName] = useState("");
 
   const animationStyle = useCallback(
@@ -58,14 +54,13 @@ function Galeria() {
   );
 
   const removeImage = (indexToRemove) => {
-    const updatedImages = images.filter((_, index) => index !== indexToRemove);
-    setImages(updatedImages);
+    const updatedImages = galleryImages.filter((_, index) => index !== indexToRemove);
+    dispatch(setGalleryImages(updatedImages));
     saveImages(updatedImages);
   };
 
   const openImagePicker = async () => {
-    const permissionResult =
-      await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
       Alert.alert(
         "Permissão negada",
@@ -86,10 +81,9 @@ function Galeria() {
         uri: pickerResult.assets[0].uri,
         name: photoName || "Fotos",
       };
-      const newImages = [...images, newImage];
-      setImages(newImages);
+      dispatch(addGalleryImage(newImage));
       setPhotoName("");
-      saveImages(newImages);
+      saveImages([...galleryImages, newImage]);
     }
   };
 
@@ -116,7 +110,7 @@ function Galeria() {
     const fetchData = async () => {
       const storedImages = await loadImages();
       if (storedImages) {
-        setImages(storedImages);
+        dispatch(setGalleryImages(storedImages));
       }
     };
     fetchData();
@@ -144,7 +138,7 @@ function Galeria() {
         width={ITEM_WIDTH}
         pagingEnabled={false}
         height={ITEM_HEIGHT}
-        data={images}
+        data={galleryImages}
         renderItem={({ item, index }) => {
           return (
             <TouchableOpacity key={index}>

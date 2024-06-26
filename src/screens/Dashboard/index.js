@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as S from "./styles";
 import Storage from "../../database/Storage";
-import * as Animatable from "react-native-animatable";
+import { useDispatch, useSelector } from "react-redux";
+import { addTask, removeTask } from "../../database/store";
 
 const Dashboard = () => {
-  const [tasks, setTasks] = useState([]);
+  const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.pedometer.tasks);
+
   const [newTask, setNewTask] = useState("");
   const [completedTasks, setCompletedTasks] = useState([]);
 
@@ -14,24 +17,24 @@ const Dashboard = () => {
   useEffect(() => {
     const loadTasks = async () => {
       const savedTasks = await storage.getTasks();
-      setTasks(savedTasks);
+      dispatch(addTask(savedTasks)); // Atualiza o estado global com as tarefas do AsyncStorage
     };
 
     loadTasks();
-  }, []);
+  }, [dispatch]);
 
-  const addTask = async () => {
+  const addTaskToRedux = async () => {
     if (newTask.trim() !== "") {
       const newTaskObj = { title: newTask, id: Math.random().toString() };
       await storage.add(newTaskObj);
-      setTasks([...tasks, newTaskObj]);
+      dispatch(addTask(newTaskObj)); // Adiciona a nova tarefa ao estado global
       setNewTask("");
     }
   };
 
-  const removeTask = async (taskId) => {
+  const removeTaskFromRedux = async (taskId) => {
     await storage.remove(taskId);
-    setTasks(tasks.filter((task) => task.id !== taskId));
+    dispatch(removeTask(taskId)); // Remove a tarefa do estado global
     setCompletedTasks(completedTasks.filter((id) => id !== taskId));
   };
 
@@ -46,12 +49,9 @@ const Dashboard = () => {
 
   return (
     <S.Container>
-      <Animatable.View animation="slideInDown" duration={2500}>
-        <Animatable.View animation="fadeIn" duration={5000}>
-          <S.LogoMapa source={require("../../assets/mapa.png")} />
-          <S.TitleDash>Destinos</S.TitleDash>
-        </Animatable.View>
-      </Animatable.View>
+      <S.LogoMapa source={require("../../assets/mapa.png")} />
+      <S.TitleDash>Destinos</S.TitleDash>
+
       {tasks.map((task) => (
         <S.TaskContainer
           key={task.id}
@@ -81,7 +81,7 @@ const Dashboard = () => {
             />
           </S.ActionButton>
 
-          <S.ActionButton onPress={() => removeTask(task.id)}>
+          <S.ActionButton onPress={() => removeTaskFromRedux(task.id)}>
             <MaterialIcons name="delete" size={24} color="#fff" />
           </S.ActionButton>
         </S.TaskContainer>
@@ -93,9 +93,8 @@ const Dashboard = () => {
           value={newTask}
           onChangeText={(text) => setNewTask(text)}
         />
-        <S.ActionButton onPress={addTask}>
-          <MaterialIcons name="add-circle" 
-          size={24} color="#fff" />
+        <S.ActionButton onPress={addTaskToRedux}>
+          <MaterialIcons name="add-circle" size={25} color="#fff" />
         </S.ActionButton>
       </S.TaskContainer>
     </S.Container>

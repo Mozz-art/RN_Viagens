@@ -5,7 +5,7 @@ import Traking from './Traking/index'
 import Menu from './Menu/index'
 import Galeria from './Galeria/index'
 import Passometro from './Passometro/index'
-import Camera from './Camera/index'
+import TakePhoto from './TakePhoto/index'
 import Graficos from './Graficos/index'
 
-export {Register, Login, Dashboard, Menu, Traking, Galeria, Passometro, Camera, Graficos}
+export {Register, Login, Dashboard, Menu, Traking, Galeria, Passometro, TakePhoto, Graficos}

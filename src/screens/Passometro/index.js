@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Accelerometer } from "expo-sensors";
-import * as S from "./styles";
-import * as Animatable from "react-native-animatable";
+// src/components/Passometro.js
+import React, { useState, useEffect } from 'react';
+import { Accelerometer } from 'expo-sensors';
+import * as S from './styles';
+import * as Animatable from 'react-native-animatable';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { setStepCount, setDistance } from '../../database/store';
 
 const Passometro = () => {
-  const [acceleration, setAcceleration] = useState({ x: 0, y: 0, z: 0 });
-  const [stepCount, setStepCount] = useState(0);
-  const [distance, setDistance] = useState(0);
+  const dispatch = useDispatch();
+  const stepCount = useSelector(state => state.pedometer.stepCount);
+  const distance = useSelector(state => state.pedometer.distance);
   const stepLength = 0.7;
 
   Accelerometer.setUpdateInterval(100);
@@ -15,14 +19,34 @@ const Passometro = () => {
     let isMounted = true;
     let lastStepTimestamp = Date.now();
 
-    const calcularDistancia = (steps) => {
-      return steps * stepLength;
+    const loadStoredData = async () => {
+      try {
+        const storedStepCount = await AsyncStorage.getItem('stepCount');
+        const storedDistance = await AsyncStorage.getItem('distance');
+        if (storedStepCount !== null) {
+          dispatch(setStepCount(Number(storedStepCount)));
+        }
+        if (storedDistance !== null) {
+          dispatch(setDistance(Number(storedDistance)));
+        }
+      } catch (error) {
+        console.error('Failed to load data', error);
+      }
     };
 
-    Accelerometer.addListener((accelerometerData) => {
-      if (isMounted) {
-        setAcceleration(accelerometerData);
+    loadStoredData();
 
+    const saveData = async (steps, distance) => {
+      try {
+        await AsyncStorage.setItem('stepCount', steps.toString());
+        await AsyncStorage.setItem('distance', distance.toString());
+      } catch (error) {
+        console.error('Failed to save data', error);
+      }
+    };
+
+    const listener = Accelerometer.addListener((accelerometerData) => {
+      if (isMounted) {
         const { x, y, z } = accelerometerData;
         const accelerationMagnitude = Math.sqrt(x ** 2 + y ** 2 + z ** 2);
 
@@ -33,8 +57,13 @@ const Passometro = () => {
           const timeDiff = now - lastStepTimestamp;
 
           if (timeDiff > 300) {
-            setStepCount((prevStepCount) => prevStepCount + 1);
-            setDistance((prevDistance) => prevDistance + stepLength);
+            const newStepCount = stepCount + 1;
+            const newDistance = distance + stepLength;
+
+            dispatch(setStepCount(newStepCount));
+            dispatch(setDistance(newDistance));
+
+            saveData(newStepCount, newDistance);
 
             lastStepTimestamp = now;
           }
@@ -44,13 +73,19 @@ const Passometro = () => {
 
     return () => {
       isMounted = false;
-      Accelerometer.removeAllListeners();
+      listener && listener.remove();
     };
-  }, []);
+  }, [dispatch, stepCount, distance]);
 
-  const resetContador = () => {
-    setStepCount(0);
-    setDistance(0);
+  const resetContador = async () => {
+    dispatch(setStepCount(0));
+    dispatch(setDistance(0));
+    try {
+      await AsyncStorage.setItem('stepCount', '0');
+      await AsyncStorage.setItem('distance', '0');
+    } catch (error) {
+      console.error('Failed to reset data', error);
+    }
   };
 
   return (
@@ -64,7 +99,7 @@ const Passometro = () => {
         <S.InfoContainer>
           <Animatable.View animation="slideInDown" duration={2500}>
             <Animatable.View animation="fadeIn" duration={5000}>
-              <S.LogoPassometro source={require("../../assets/Sprint1.png")} />
+              <S.LogoPassometro source={require('../../assets/Sprint1.png')} />
             </Animatable.View>
           </Animatable.View>
 
